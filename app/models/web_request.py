@@ -3,7 +3,6 @@
 """
 from sqlalchemy import Column, String, PickleType
 
-from app import app
 from app.models.base import Base
 
 
@@ -13,6 +12,7 @@ class WebRequest(Base):
 
     uri = Column(String(10), nullable=False)
     data = Column(PickleType())
+    ip = Column(String(50))
 
     def __init__(self, _id=None):
         if _id:
@@ -28,5 +28,6 @@ class WebRequest(Base):
         self.id = int(obj.id)
         self.uri = obj.uri
         self.data = obj.data
+        self.ip = obj.ip
         self.ts_created = obj.data
         self.ts_updated = obj.ts_updated

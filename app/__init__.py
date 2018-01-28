@@ -20,6 +20,7 @@ else:
 db = SQLAlchemy(app)
 
 # Models
+from app.models.web_request import WebRequest
 
 # Helpers
 # from app.helpers import misc_time
@@ -76,3 +77,5 @@ def page_not_found(e):
 
 
 app.logger.info('Started App!')
+
+# End File: simple-callback-server/app/__init__.py
