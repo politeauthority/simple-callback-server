@@ -67,7 +67,7 @@ def register_blueprints(app):
 DebugToolbarExtension(app)
 register_logging(app)
 register_blueprints(app)
-register_api(app)
+# register_api(app)
 
 
 @app.errorhandler(404)
