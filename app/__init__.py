@@ -75,7 +75,6 @@ register_blueprints(app)
 def page_not_found(e):
     return render_template('errors/404.html'), 404
 
-
 app.logger.info('Started App!')
 
 # End File: simple-callback-server/app/__init__.py
