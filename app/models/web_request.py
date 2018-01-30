@@ -1,7 +1,7 @@
 """Company - MODELS
 
 """
-from sqlalchemy import Column, String, PickleType
+from sqlalchemy import Column, String, PickleType, Text
 
 from app.models.base import Base
 
@@ -10,7 +10,7 @@ class WebRequest(Base):
 
     __tablename__ = 'web_requests'
 
-    uri = Column(String(10), nullable=False)
+    uri = Column(Text(), nullable=False)
     data = Column(PickleType())
     ip = Column(String(50))
 

@@ -6,11 +6,12 @@ import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
-from flask import Flask, render_template
+from flask import Flask, Blueprint, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_debugtoolbar import DebugToolbarExtension
-import flask_restless
-
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+# import flask_restless
 
 app = Flask(__name__)
 if os.environ.get('RASPBERY_FRAME_BUILD') == 'LIVE':
@@ -56,6 +57,30 @@ def register_blueprints(app):
     app.register_blueprint(ctrl_home)
 
 
+def register_admin(app):
+    """
+    Starts the admin utility
+
+    """
+    app = Admin(
+        app,
+        url="/%s" % os.environ.get('SCS_ADMIN_URL'),
+        name='SCS',
+        template_mode='bootstrap3')
+
+    app.add_view(ModelView(WebRequest, db.session))
+
+
+@app.route('/robots.txt', methods=['GET', 'POST'])
+def robots():
+    """
+    """
+    return """
+User-agent: *\n
+Disallow: /\n
+"""
+
+
 # def register_api(app):
 #     """
 #     Enables the API routes and configruation.
@@ -65,9 +90,11 @@ def register_blueprints(app):
 #     manager.create_api(Company, methods=['GET'])
 #     manager.create_api(Quote, methods=['GET'], max_results_per_page=365)
 
-DebugToolbarExtension(app)
+# DebugToolbarExtension(app)
 register_logging(app)
 register_blueprints(app)
+register_admin(app)
+db.create_all()
 # register_api(app)
 
 
