@@ -5,10 +5,10 @@ Main file for the entire flask app.
 import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
+from werkzeug.contrib.fixers import ProxyFix
 
-from flask import Flask, Blueprint, render_template
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_debugtoolbar import DebugToolbarExtension
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 # import flask_restless
@@ -30,6 +30,8 @@ from app.models.web_request import WebRequest
 
 # Controllers
 from controllers.home import home as ctrl_home
+
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 
 def register_logging(app):
@@ -90,17 +92,12 @@ Disallow: /\n
 #     manager.create_api(Company, methods=['GET'])
 #     manager.create_api(Quote, methods=['GET'], max_results_per_page=365)
 
-# DebugToolbarExtension(app)
 register_logging(app)
 register_blueprints(app)
 register_admin(app)
 db.create_all()
 # register_api(app)
 
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('errors/404.html'), 404
 
 app.logger.info('Started App!')
 

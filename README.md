@@ -1,4 +1,5 @@
-# BoojPressDocker
+# Simple Callback Server
+This creates a simple webserver which accepts POST and GET requests with web administration and easy customization.
 
 ## Example using docker
 ```
