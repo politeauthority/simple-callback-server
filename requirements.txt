@@ -4,7 +4,7 @@ Jinja2==2.9.6
 MarkupSafe==1.0
 MySQL-python==1.2.3
 SQLAlchemy==1.1.13
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 html5lib==0.999
 itsdangerous==0.24
 urllib3==1.9.1
